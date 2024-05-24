@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'authentication.apps.AuthConfig',
     'rest_pyotp',
+    # "users",
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -59,7 +61,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
+    # CORS
+    'corsheaders.middleware.CorsMiddleware',
 ]
+ 
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',
+)
+
 
 ROOT_URLCONF = 'django_multirole_auth.urls'
 
@@ -183,3 +194,5 @@ SIMPLE_JWT = {
     'SIGNING_KEY': 'sua_chave_gerada_aqui',
     # outras configurações...
 }
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

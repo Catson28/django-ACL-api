@@ -43,7 +43,38 @@ python manage.py runserver
 - Add unit tests
 - enforce static typing
 
+```bash
+http://localhost:8000/admin/
+http://localhost:8000/auth/login [name='custom-login']
+http://localhost:8000/auth/refresh/ [name='token_refresh']
+http://localhost:8000/protected-view/ [name='protected-view']
+http://localhost:8000/support/auth/login
+http://localhost:8000/support/auth/refresh/ [name='token_refresh']
+http://localhost:8000/support/protected-view/ [name='support-protected-view']
+http://localhost:8000/patient/auth/login
+http://localhost:8000/patient/auth/refresh/ [name='token_refresh']
+http://localhost:8000/patient/protected-view/ [name='patient-protected-view']
+http://localhost:8000/admin/auth/login
+http://localhost:8000/admin/auth/refresh/ [name='token_refresh']
+http://localhost:8000/admin/protected-view/ [name='admin-protected-view']
+http://localhost:8000/staff/auth/login
+http://localhost:8000/staff/auth/refresh/ [name='token_refresh']
+http://localhost:8000/staff/protected-view/ [name='staff-protected-view']
+http://localhost:8000/auth/logout/ [name='logout']
+http://localhost:8000/users
+http://localhost:8000/create-permission-for-role/ [name='create-permission-for-role']
+http://localhost:8000/assign-permission-to-role/ [name='assign-permission-to-role']
+http://localhost:8000/someview
+```
+
+
+
 #   Rotas que funcionaram
+
+
+
+**Registar-se**
+
 ```
 http://localhost:8000/users
 ```
@@ -81,6 +112,27 @@ resposta
 }
 ```
 
+**Login**
+
+
+```
+http://localhost:8000/auth/login
+```
+
+corpo
+
+```
+{
+ "email": "novousuario@example.com",
+ "password": "senha123"
+}
+```
+
+resposta
+```
+{"refresh":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcxOTAzNzM0NiwiaWF0IjoxNzE2NDQ1MzQ2LCJqdGkiOiJjNTVkZTIzMTViODI0ZDRkYmJiOWZlNTlhNjJiNGQyYSIsInVzZXJfaWQiOjF9.HPhuijLkmTYZiv1DSGQlL9jmfuKgNOu3VNTB32AGEKQ","access":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE2NDQ2MjQ2LCJpYXQiOjE3MTY0NDUzNDYsImp0aSI6IjEzNWQxNzkwMDJiNzQ3MjJhNGJhNWNkYWRlZWJjNTRmIiwidXNlcl9pZCI6MX0.5SOMyZK_nc11lq1VI5rXdmIq2De9g6uzhOT7y9M3ibI","roles":["patient","staff"]}
+```
+
 
 Vamos mostrar como você pode acessar cada uma das rotas no Postman. Certifique-se de ter o Postman instalado em seu sistema.
 
@@ -88,36 +140,24 @@ Vamos mostrar como você pode acessar cada uma das rotas no Postman. Certifique-
 
 #### Rota:
 - **Método:** POST
-- **URL:** `http://seu-domínio/api/create-permission-for-role/`
+- **URL:** `http://localhost:8000/create-permission-for-role/`
 
 #### Dados da Solicitação (corpo da requisição):
 ```json
 {
   "role": {
-    "display": "novarole",
-    "created_at": "2024-01-01T00:00:00Z",  // Preencha com a data desejada
-    "modified_at": "2024-01-01T00:00:00Z"  // Preencha com a data desejada
+    "display": "staff"
   },
   "permission": {
-    "codename": "novapermissao",
-    "name": "Nova Permissao",
-    "created_at": "2024-01-01T00:00:00Z",  // Preencha com a data desejada
-    "modified_at": "2024-01-01T00:00:00Z"  // Preencha com a data desejada
+    "codename": "bruno",
+    "name": "create",
+    "roles": [1]
   }
 }
 ```
 
 ```json
-{
-  "role": {
-    "display": "patient"
-  },
-  "permission": {
-    "codename": "patient",
-    "name": "Nova Permissao",
-    "roles": [1]
-  }
-}
+{"success":true}
 ```
 
 ### 2. Associar uma Permissão Existente a uma Função Existente:

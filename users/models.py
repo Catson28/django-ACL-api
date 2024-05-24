@@ -83,10 +83,11 @@ class Permission(models.Model):
         ('read', 'READ'),
         ('update', 'UPDATE'),
         ('delete', 'DELETE'),
-        ('look', 'LOOK')
+        ('look', 'LOOK'),
+        ('bruno', 'BRUNO')
     )
 
-    [(role.display, role.display) for role in Roles.objects.all()]
+    # [(role.display, role.display) for role in Roles.objects.all()]
     codename = models.CharField(max_length=100, unique=True, choices=PERMISSION_CHOICES)
     name = models.CharField(max_length=255)
     roles = models.ManyToManyField(Roles, related_name='permissions')
